@@ -28,6 +28,6 @@ module.exports = {
         member.roles.add(죄인ID);
         //member.addRole(chriminal_role);
         setTimeout(() => member.roles.remove(죄인ID) , time*1000*60);
-        //interaction.reply("죄인이 끝났습니다.");
+        interaction.channel.send('<@'+target.id+'>'+'은(는) 죄인에서 풀려났습니다.');
     },
 };
