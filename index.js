@@ -3,7 +3,8 @@ const path = require('path');
 const {Client, Collection, GatewayIntentBits} = require('discord.js');
 const { token } = require('./config.json');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+const client = new Client({ intents: 32767 }); // bot에게 모든 권한 허용 코드
 
 client.commands = new Collection();
 //Grab all the command folder
