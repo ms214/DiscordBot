@@ -46,7 +46,7 @@ module.exports = {
                     return reaction.emoji.name === "👍";
                 };
 
-                const collector = pollTopic.createReactionCollector({filter, time: 10*1000}); // 10분간
+                const collector = pollTopic.createReactionCollector({filter, time: 10*60*1000}); // 10분간
 
                 collector.on('collect', (reaction, user) => {
                     console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
@@ -56,7 +56,7 @@ module.exports = {
                     if(collected.at(0).count-1 >= 4){ // 봇 투표수 제외
                         addChriminal(interaction, target, time);
                     }else{
-                        interaction.channel.send(`10분동안 4표 이하로 부결되었습니다. 투표수 : ${collected.at(0).count-1}`);
+                        pollTopic.reply(`10분동안 4표 이하로 부결되었습니다. 투표수 : ${collected.at(0).count-1}`)
                     }
                 });
 
