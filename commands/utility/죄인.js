@@ -16,7 +16,7 @@ module.exports = {
     
     async execute(interaction){
         const admin = await interaction.guild.members.fetch(interaction.user.id);
-        console.log(admin.roles.valueOf());
+        //console.log(admin.roles.valueOf());
         const target = interaction.options.getUser('target');
         let time = interaction.options.getString('time') ?? '60';
         time *= 1;
@@ -46,19 +46,19 @@ module.exports = {
                     return reaction.emoji.name === "👍";
                 };
 
-                const collector = pollTopic.createReactionCollector({filter, time: 10*60*1000}); // 10분간
+                const collector = pollTopic.createReactionCollector({filter, time: 10*1000}); // 10분간
 
                 collector.on('collect', (reaction, user) => {
                     console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
                 });
 
                 collector.on('end', (collected) => {
-                    if(collected.size-1 >= 4){ // 봇 투표수 제외
+                    if(collected.at(0).count-1 >= 4){ // 봇 투표수 제외
                         addChriminal(interaction, target, time);
                     }else{
-                        interaction.channel.send(`10분동안 4표 이하로 부결되었습니다. 투표수 : ${collected.size}`);
+                        interaction.channel.send(`10분동안 4표 이하로 부결되었습니다. 투표수 : ${collected.at(0).count-1}`);
                     }
-                })
+                });
 
             }
             
